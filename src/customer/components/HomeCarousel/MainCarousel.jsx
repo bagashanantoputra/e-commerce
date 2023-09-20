@@ -45,7 +45,7 @@ export default function MainCarousel() {
                           </div>
                           <div className="h-64 w-44 overflow-hidden rounded-lg">
                             <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
+                              src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-07.jpg"
                               alt=""
                               className="h-full w-full object-cover object-center"
                             />
@@ -61,7 +61,7 @@ export default function MainCarousel() {
                           </div>
                           <div className="h-64 w-44 overflow-hidden rounded-lg">
                             <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
+                              src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg"
                               alt=""
                               className="h-full w-full object-cover object-center"
                             />
@@ -77,7 +77,7 @@ export default function MainCarousel() {
                           </div>
                           <div className="h-64 w-44 overflow-hidden rounded-lg">
                             <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
+                              src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg"
                               alt=""
                               className="h-full w-full object-cover object-center"
                             />

@@ -6,10 +6,13 @@ import Footer from '../../components/Footer/Footer'
 import HomeCollection from '../../components/HomeCollection/HomeCollection'
 import Review from '../../components/Review/Review'
 import Collaboration from '../../components/Collaboration/Collaboration'
+import Navigation from '../../components/Navigation/Navigation'
+import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 
 const HomePage = () => {
   return (
     <div>
+        <Navigation/>
         <MainCarousel/>
         <HomeSectionCard/>
         <HomeCollection/>
@@ -17,6 +20,7 @@ const HomePage = () => {
         <Review/>
         <Collaboration/>
         <Footer/>
+        <ScrollToTop/>
     </div>
   )
 }

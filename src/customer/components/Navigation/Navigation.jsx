@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Outlet, Link } from "react-router-dom";
 
 const navigation = {
   categories: [
@@ -120,8 +121,10 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
+    { 
+      id: 1,
+      name: 'Products' 
+    },
   ],
 }
 
@@ -139,7 +142,6 @@ export default function Navigation() {
 
   return (
     <div className="bg-white">
-      {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
           <Transition.Child
@@ -243,9 +245,7 @@ export default function Navigation() {
                 <div className="space-y-6 border-t border-gray-400 px-4 py-6">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
-                      <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
-                        {page.name}
-                      </a>
+                      <Link to="/products">{page.name}</Link>
                     </div>
                   ))}
                 </div>
@@ -268,9 +268,9 @@ export default function Navigation() {
         </Dialog>
       </Transition.Root>
 
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className="fixed inset-x-0 top-0 z-50">
         {!isHidden && (
-          <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+          <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-indigo-600 px-6 py-2.5 sm:px-3.5 sm:before:flex-1"  style={{ width: '100%' }}>
             <div
               className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
               aria-hidden="true"
@@ -296,7 +296,7 @@ export default function Navigation() {
               />
             </div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <p className="text-sm leading-6 text-gray-900">
+              <p className="text-sm leading-6 text-white">
                 <strong className="font-semibold">Citayam Fashion Week 2023</strong>
                 <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
                   <circle cx={1} cy={1} r={1} />
@@ -322,8 +322,8 @@ export default function Navigation() {
             </div>
           </div>
         )}
-        <nav aria-label="Top" className="mx-auto max-w-100 px-4 sm:px-6 lg:px-8">
-          <div className="border-b border-gray-400">
+        <nav aria-label="Top" className="bg-gray-100 mx-auto max-w-100 px-4 sm:px-6 lg:px-8">
+          <div>
             <div className="flex h-16 items-center">
               <button
                 type="button"
@@ -337,14 +337,13 @@ export default function Navigation() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="#">
-                  <span className="sr-only">Your Company</span>
+                <Link to="/">
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt=""
                   />
-                </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}
@@ -436,13 +435,7 @@ export default function Navigation() {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <a
-                      key={page.name}
-                      href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      {page.name}
-                    </a>
+                    <Link key={page.id} to="/products" className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{page.name}</Link>
                   ))}
                 </div>
               </Popover.Group>
@@ -481,6 +474,7 @@ export default function Navigation() {
             </div>
           </div>
         </nav>
+        <Outlet />
       </header>
     </div>
   )
