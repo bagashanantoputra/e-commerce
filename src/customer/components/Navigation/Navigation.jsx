@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Outlet, Link } from "react-router-dom";
+import Cart from '../Cart/Cart';
 
 const navigation = {
   categories: [
@@ -135,7 +136,17 @@ function classNames(...classes) {
 export default function Navigation() {
   const [open, setOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
+  const handleClose = () => {
+    setIsCartOpen(false);
+  };
+
+  const toggleCart = () => {
+    handleClose(true);
+    setIsCartOpen(true);
+  };
+  
   const handleDismiss = () => {
     setIsHidden(true);
   };
@@ -322,7 +333,7 @@ export default function Navigation() {
             </div>
           </div>
         )}
-        <nav aria-label="Top" className="bg-gray-100 mx-auto max-w-100 px-4 sm:px-6 lg:px-8">
+        <nav aria-label="Top" className="bg-gray-100 shadow-md mx-auto max-w-100 px-4 sm:px-6 lg:px-8">
           <div>
             <div className="flex h-16 items-center">
               <button
@@ -452,23 +463,28 @@ export default function Navigation() {
                 </div>
 
                 {/* Search */}
-                <div className="flex lg:ml-6">
+                {/* <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
                     <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
                   </a>
-                </div>
+                </div> */}
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
+                  <button onClick={toggleCart} className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">2</span>
                     <span className="sr-only">items in cart, view bag</span>
-                  </a>
+                  </button>
+                  <Cart 
+                  show={isCartOpen}
+                  onClose={handleClose}
+                  onClick={handleClose}
+                  />
                 </div>
               </div>
             </div>

@@ -23,7 +23,7 @@ const Review = () => {
                         </div>
                         <div className="px-6 py-4">
                             <div className="font-bold text-xl mb-2">{callout.name}</div>
-                            <p className="text-gray-700 text-base">
+                            <p className="text-gray-700 text-sm">
                             {callout.comment}
                             </p>
                         </div>
