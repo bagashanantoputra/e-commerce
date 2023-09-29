@@ -351,7 +351,7 @@ export default function Navigation() {
                 <Link to="/">
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    src="./img/galaxy.png"
                     alt=""
                   />
                 </Link>
