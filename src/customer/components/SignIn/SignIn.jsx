@@ -1,6 +1,69 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useMutation } from "react-query";
+import { API, setAuthToken } from "../../../config/api";
+import { UserContext } from "../../../context/userContext";
+import Swal from "sweetalert2";
 
 export default function SignIn() {
+    let Navigate = useNavigate();
+    const [, dispatch] = useContext(UserContext);
+
+    const [formLogin, setFormLogin] = useState({
+      email: "",
+      password: "",
+    });
+  
+    const ChangeLogin = (e) => {
+      setFormLogin({
+        ...formLogin,
+        [e.target.name]: e.target.value,
+      });
+    };
+  
+    const handleLoginMutation = useMutation(async () => {
+      const response = await API.post("/login", formLogin);
+      return response.data.data;
+    }, {
+      onSuccess: (data) => {
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: data,
+        });
+  
+        setAuthToken(data.token);
+  
+        // Status check
+        if (data.is_admin === true) {
+          Navigate("/tabletransaction");
+        } else {
+          Navigate("/");
+        }
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      },
+      onError: () => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Login Failed",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      },
+    });
+  
+    const handleLogin = (e) => {
+      e.preventDefault();
+      handleLoginMutation.mutate();
+    };
+  
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div
@@ -31,6 +94,8 @@ export default function SignIn() {
                     <input
                         id="email"
                         name="email"
+                        value={formLogin.email}
+                        onChange={ChangeLogin}
                         type="email"
                         autoComplete="email"
                         required
@@ -45,7 +110,7 @@ export default function SignIn() {
                         Password
                     </label>
                     <div className="text-sm">
-                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                        <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">
                         Forgot password?
                         </a>
                     </div>
@@ -55,6 +120,8 @@ export default function SignIn() {
                         id="password"
                         name="password"
                         type="password"
+                        value={formLogin.password}
+                        onChange={ChangeLogin}
                         autoComplete="current-password"
                         required
                         className="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -65,6 +132,7 @@ export default function SignIn() {
                 <div>
                     <button
                     type="submit"
+                    onClick={handleLogin}
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                     Sign in

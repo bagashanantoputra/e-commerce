@@ -16,7 +16,7 @@ export default function MainCarousel() {
           />
         </div>
         <div className="relative drop-shadow-md mx-auto overflow-hidden bg-transparent">
-          <div className="pb-80 pt-16 sm:pb-30 sm:pt-24 lg:pb-40 lg:pt-40">
+          <div className="pb-80 pt-10 sm:pb-30 sm:pt-24 lg:pb-40 lg:pt-40">
             <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6">
               <div className="sm:max-w-lg">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -34,7 +34,7 @@ export default function MainCarousel() {
                     className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl"
                   >
                     <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-                      <div className="flex items-center space-x-6 lg:space-x-8">
+                      <div className="flex items-center space-x-4 lg:mt-0 mt-16 lg:space-x-8">
                         <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                           <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
                             <img
@@ -88,8 +88,8 @@ export default function MainCarousel() {
                   </div>
 
                   <a
-                    href="#"
-                    className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
+                    href="/"
+                    className="inline-block rounded-md border border-transparent bg-indigo-600 lg:mb-0 mb-20 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
                   >
                     Shop Collection
                   </a>

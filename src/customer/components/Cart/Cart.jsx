@@ -2,10 +2,16 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { cartData } from './CartData'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function Cart(props) {
+    const location = useLocation();
+    const isSignInPage = location.pathname === '/signin';
+    const isCreateAccountPage = location.pathname === '/createaccount';
 
+    if (isSignInPage || isCreateAccountPage) {
+        return null;
+    }
     return (
         <Transition.Root show={props.show} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={props.onClose}>

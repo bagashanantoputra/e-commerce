@@ -1,12 +1,65 @@
 import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import { Switch } from '@headlessui/react'
+import { useMutation } from "react-query";
+import { API } from "../../../config/api";
+import Swal from "sweetalert2";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function CreateAccount() {
+    let Navigate = useNavigate();
     const [agreed, setAgreed] = useState(false)
+    const [formRegister, setFormRegister] = useState({
+        name: "",
+        email: "",
+        password: "",
+        role: "user",
+      });
+    
+      const { name, email, password } = formRegister;
+    
+      const ChangeRegister = (e) => {
+        setFormRegister({
+          ...formRegister,
+          [e.target.name]: e.target.value,
+        });
+      };
+      // Mengubah data pada server
+      const handleSubmit = useMutation(async (e) => {
+        try {
+          e.preventDefault();
+    
+          const response = await API.post("/register", formRegister);
+    
+          console.log("register success : ", response);
+    
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Register Success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setFormRegister({
+            name: "",
+            email: "",
+            password: "",
+          });
+        } catch (error) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Register Failed",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        Navigate("/");
+      });
+    
 
     return (
         <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -25,17 +78,19 @@ export default function CreateAccount() {
             <div className="mx-auto max-w-2xl text-center">
                 <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create your Account</h2>
             </div>
-            <form action="#" method="POST" className="mx-auto mt-5 max-w-xl sm:mt-7">
+            <form onSubmit={(e) => handleSubmit.mutate(e)} className="mx-auto mt-5 max-w-xl sm:mt-7">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <div>
-                    <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                     First name
                     </label>
                     <div className="mt-2.5">
                     <input
                         type="text"
-                        name="first-name"
-                        id="first-name"
+                        name="name"
+                        id="name"
+                        value={name}
+                        onChange={ChangeRegister}
                         autoComplete="given-name"
                         className="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -65,6 +120,8 @@ export default function CreateAccount() {
                         name="email"
                         id="email"
                         autoComplete="email"
+                        value={email}
+                        onChange={ChangeRegister}
                         className="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                     </div>
@@ -78,6 +135,8 @@ export default function CreateAccount() {
                         type="password"
                         name="password"
                         id="password"
+                        value={password}
+                        onChange={ChangeRegister}
                         autoComplete="organization"
                         className="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
